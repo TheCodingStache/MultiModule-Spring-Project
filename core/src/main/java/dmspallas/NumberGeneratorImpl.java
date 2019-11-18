@@ -1,10 +1,12 @@
 package dmspallas;
 
-import java.util.Random;
+import org.springframework.stereotype.Component;
 
+import java.util.Random;
+@Component("generator")
 public class NumberGeneratorImpl implements NumberGenerator {
     private final Random random = new Random();
-    int maxNumber = 500;
+    private int maxNumber = 500;
 
     @Override
     public int next() {

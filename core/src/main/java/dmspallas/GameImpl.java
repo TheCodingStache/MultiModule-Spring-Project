@@ -3,14 +3,18 @@ package dmspallas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+@Component
 public class GameImpl implements Game {
+
     //== constants
-    @Autowired
     private static final Logger log = LoggerFactory.getLogger(GameImpl.class);
+
+    @Autowired
     private NumberGenerator numberGenerator;
     private int guessCount = 10;
     private int number;
@@ -22,7 +26,6 @@ public class GameImpl implements Game {
 
     //==init methods ==
     @PostConstruct
-
     @Override
     public void reset() {
         smallest = 0;
