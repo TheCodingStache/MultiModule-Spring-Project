@@ -1,11 +1,16 @@
 package dmspallas;
 
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 public class GameImpl implements Game {
     //== constants
-    private static final Logger log = (Logger) LoggerFactory.getLogger(GameImpl.class);
+    @Autowired
+    private static final Logger log = LoggerFactory.getLogger(GameImpl.class);
     private NumberGenerator numberGenerator;
     private int guessCount = 10;
     private int number;
@@ -15,7 +20,30 @@ public class GameImpl implements Game {
     private int remainingGuesses;
     private boolean validNumberRange = true;
 
+    //==init methods ==
+    @PostConstruct
+
+    @Override
+    public void reset() {
+        smallest = 0;
+        guess = 0;
+        remainingGuesses = guessCount;
+        biggest = numberGenerator.getMaxNumber();
+        number = numberGenerator.next();
+        log.debug("the number is {}", number);
+
+    }
+
     //== public methods ==
+    @PreDestroy
+    public void preDestroy() {
+        log.info("in Game preDestroy");
+    }
+
+    public void setNumberGenerator(NumberGenerator numberGenerator) {
+        this.numberGenerator = numberGenerator;
+    }
+
     @Override
     public int getNumber() {
         return number;
@@ -50,16 +78,6 @@ public class GameImpl implements Game {
         return remainingGuesses;
     }
 
-    @Override
-    public void reset() {
-        smallest = 0;
-        guess = 0;
-        remainingGuesses = guessCount;
-        biggest = numberGenerator.getMaxNumber();
-        number = numberGenerator.next();
-        log.debug("the number is {}", number);
-
-    }
 
     @Override
     public void check() {
