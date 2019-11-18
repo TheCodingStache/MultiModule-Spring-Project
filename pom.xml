@@ -11,6 +11,49 @@
         <module>core</module>
     </modules>
     <packaging>pom</packaging>
+    <properties>
+        <logback.version>
+            1.2.3
+        </logback.version>
+        <spring.version>
+            5.2.1.RELEASE
+        </spring.version>
+        <java.version>
+            11
+        </java.version>
+    </properties>
+    <dependencyManagement>
 
+        <dependencies>
 
+            <dependency>
+                <!-- Logging -->
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <!-- Spring Context -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <target>${java.version}</target>
+                    <source>${java.version}</source>
+                    <release>${java.version}</release>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>
